@@ -15,6 +15,8 @@ void main() async {
       path: 'assets/langs',
       // <-- change the path of the translation files
       fallbackLocale: Locale('en'),
+      saveLocale: true,
+      startLocale:  Locale('en', 'US'),
 
       child: MyApp(),
     ),
@@ -26,7 +28,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Locale locale;
+    Locale locale = context.locale;
 
     return ScreenUtilInit(
       designSize: Size(360, 690),
@@ -39,11 +41,11 @@ class MyApp extends StatelessWidget {
         localeResolutionCallback: (deviceLocale, supportedLocales) {
           myLocale =
               deviceLocale!; // here you make your app language similar to device language , but you should check whether the localization is supported by your app
-          print(myLocale.countryCode);
+          print("myLocale.countryCode :${myLocale.countryCode}");
           locale = Locale(myLocale.languageCode);
-          print(myLocale.languageCode);
+          print("myLocale.languageCode :${myLocale.languageCode}");
         },
-        locale: context.locale,
+        locale: locale,
         debugShowCheckedModeBanner: false,
         home: Scaffold(
           body: SafeArea(
